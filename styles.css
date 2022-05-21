@@ -117,6 +117,22 @@ form {
     border: 1.5px solid #e6e6e6;
     outline: 0;
 }
+.inputs input:focus {
+    border: 2px solid #9a9a9a;
+    box-shadow: 2px 2px 5px #d6d6d6;
+}
+.inputs input.check:valid {
+    border: 2px solid #98ff9a;
+}
+.inputs input.check:invalid {
+    border: 2px solid #ff3838;
+}
+.valid_confirm {border: 2px solid #98ff9a !important;}
+.invalid_confirm {border: 2px solid #ff3838 !important}
+#password_confirmation {
+    color: red;
+    margin: 0 40px;
+}
 
 .submits {
     background-color: #e7e7e7;
@@ -139,6 +155,9 @@ form {
     border: 0;
     border-radius: 8px;
     box-shadow: 2px 2px 5px #656565;
+}
+.submits button:hover {
+    cursor: pointer;
 }
 .submits p {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

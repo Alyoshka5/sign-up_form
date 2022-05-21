@@ -28,7 +28,7 @@
             <div class="form_intro">
                 <p>Chess isn't just a game, it's a life style. Get the chess skills you need to defeat anyone, anywhere, anytime. Everything you need, all in one place. Join Mate today.<br><br>You won't regret it.</p>
             </div>
-            <form action="">
+            <form onsubmit="return validate()" action="">
                 <div class="form_info">
                     <p id="sign-up-now">Sign-up Now!</p>
                     <div class="inputs">
@@ -42,11 +42,11 @@
                         </div>
                         <div id="email_div">
                             <label for="email">EMAIL</label><br>
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" placeholder="example@gmail.com" required>
                         </div>
                         <div id="phone_number_div">
                             <label for="phone_number">PHONE NUMBER (Optional)</label><br>
-                            <input type="tel" id="phone_number">
+                            <input type="tel" id="phone_number" placeholder="123-456-7890" pattern="[0-9]{3}( |-)[0-9]{3}( |-)[0-9]{4}">
                         </div>
                         <div id="password_div">
                             <label for="password">PASSWORD</label><br>
@@ -57,6 +57,7 @@
                             <input type="password" id="confirm_password" required>
                         </div>
                     </div>
+                    <p id="password_confirmation"></p>
                 </div>
 
                 <div class="submits">
@@ -68,5 +69,65 @@
             </form>
         </div>
     </div>
+
+<script>
+const inputs = document.querySelectorAll('.inputs input');
+const password_input = document.querySelector('#password');
+const confirm_password_input = document.querySelector('#confirm_password');
+const password_confirmation = document.querySelector('#password_confirmation');
+console.log(inputs);
+
+function validate() {
+    if (password_input.value == confirm_password_input.value) {
+        return true;
+    } else {
+        password_confirmation.textContent = 'Passwords do not match';
+        return false;
+    }
+}
+
+function checkValue() {
+    console.log(this.value);
+    if (this == password_input) {
+        if (confirm_password_input.value == this.value && !confirm_password_input.classList.contains('valid_confirm')) {
+            if (confirm_password_input.classList.contains('invalid_confirm')) confirm_password_input.classList.remove('invalid_confirm');
+            confirm_password_input.classList.add('valid_confirm');
+        }
+        else if (confirm_password_input.value != this.value && !confirm_password_input.classList.contains('invalid_confirm')) {
+            if (confirm_password_input.classList.contains('valid_confirm')) confirm_password_input.classList.remove('valid_confirm');
+            confirm_password_input.classList.add('invalid_confirm');
+        } 
+    }
+    if (this == confirm_password_input) {
+        console.log("confirming..")
+        if (this.value == "") {
+            if (this.classList.contains('valid_confirm')) this.classList.remove('valid_confirm');
+            if (this.classList.contains('invalid_confirm')) this.classList.remove('invalid_confirm');
+        }
+        else if (this.value != password_input.value && !this.classList.contains('invalid_confirm')) {
+            console.log("invalid")
+            if (this.classList.contains('valid_confirm')) this.classList.remove('valid_confirm');
+            this.classList.add('invalid_confirm');
+        }
+        else if (this.value == password_input.value && !this.classList.contains('valid_confirm')) {
+            if (this.classList.contains('invalid_confirm')) this.classList.remove('invalid_confirm');
+            this.classList.add('valid_confirm');
+        }
+    }
+    else {
+        if (this.value == "" && this.classList.contains('check')) {
+            this.classList.remove('check');
+            console.log(this);
+        }
+        else if (!this.classList.contains('check')) {
+            this.classList.add('check');
+            console.log(this);
+        }
+    }
+    
+}
+
+inputs.forEach(input => input.addEventListener('input', checkValue));
+</script>
 </body>
 </html>
